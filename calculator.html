@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Colorful Calculator</title>
+
+<style>
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    font-family:Arial, sans-serif;
+}
+
+.calculator{
+    background:white;
+    padding:20px;
+    border-radius:20px;
+    box-shadow:0 0 20px rgba(0,0,0,0.3);
+}
+
+#display{
+    width:250px;
+    height:60px;
+    font-size:30px;
+    text-align:right;
+    margin-bottom:15px;
+    border-radius:10px;
+    border:none;
+    padding:10px;
+    background:#f3f4f6;
+    color:#1f2937;
+}
+
+.buttons{
+    display:grid;
+    grid-template-columns:repeat(4,60px);
+    gap:12px;
+}
+
+button{
+    height:60px;
+    font-size:25px;
+    border:none;
+    border-radius:15px;
+    cursor:pointer;
+    background:#e0e7ff;
+    color:#4338ca;
+    border:1px solid #c7d2fe;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#4338ca;
+    color:white;
+}
+
+.operator{
+    background:#f59e0b;
+    color:white;
+}
+
+.equal{
+    background:#10b981;
+    color:white;
+}
+
+.clear{
+    background:#ef4444;
+    color:white;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="calculator">
+
+<input type="text" id="display" disabled>
+
+<div class="buttons">
+
+<button class="clear" onclick="clearDisplay()">C</button>
+<button onclick="addValue('%')">%</button>
+<button class="operator" onclick="addValue('/')">÷</button>
+<button class="operator" onclick="addValue('*')">×</button>
+
+<button onclick="addValue('7')">7</button>
+<button onclick="addValue('8')">8</button>
+<button onclick="addValue('9')">9</button>
+<button class="operator" onclick="addValue('-')">−</button>
+
+<button onclick="addValue('4')">4</button>
+<button onclick="addValue('5')">5</button>
+<button onclick="addValue('6')">6</button>
+<button class="operator" onclick="addValue('+')">+</button>
+
+<button onclick="addValue('1')">1</button>
+<button onclick="addValue('2')">2</button>
+<button onclick="addValue('3')">3</button>
+<button class="equal" onclick="calculate()">=</button>
+
+<button onclick="addValue('0')">0</button>
+<button onclick="addValue('.')">.</button>
+
+</div>
+
+</div>
+
+<script>
+
+let display = document.getElementById("display");
+
+function addValue(value){
+    display.value += value;
+}
+
+function clearDisplay(){
+    display.value = "";
+}
+
+function calculate(){
+    try{
+        display.value = eval(display.value);
+    }
+    catch{
+        display.value = "Error";
+    }
+}
+
+</script>
+
+</body>
+</html>
+```
