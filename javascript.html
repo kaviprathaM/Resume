@@ -1,0 +1,236 @@
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Registration Portal</title>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #dbeafe, #ede9fe);
+            padding: 30px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #4c1d95;
+            margin-bottom: 25px;
+        }
+
+        .container {
+            display: flex;
+            gap: 30px;
+        }
+
+        .form-box,
+        .table-box {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .form-box {
+            width: 30%;
+        }
+
+        .table-box {
+            width: 65%;
+        }
+
+        .form-box h3,
+        .table-box h3 {
+            color: #4338ca;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #374151;
+        }
+
+        input,
+        select {
+            width: 95%;
+            padding: 10px;
+            margin-bottom: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .save {
+            background: #16a34a;
+            color: white;
+        }
+
+        .save:hover {
+            background: #15803d;
+        }
+
+        .edit {
+            background: #2563eb;
+            color: white;
+        }
+
+        .edit:hover {
+            background: #1d4ed8;
+        }
+
+        .delete {
+            background: #dc2626;
+            color: white;
+        }
+
+        .delete:hover {
+            background: #b91c1c;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #4338ca;
+            color: white;
+            padding: 12px;
+        }
+
+        td {
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            text-align: center;
+        }
+
+        tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        tr:hover {
+            background: #e0e7ff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>🎓 Student Registration Portal</h2>
+
+    <div class="container">
+
+        <div class="form-box">
+            <h3>📝 Student Information Form</h3>
+
+            <label>Full Name:</label><br>
+            <input type="text" id="name"><br>
+
+            <label>Email Address:</label><br>
+            <input type="email" id="email"><br>
+
+            <label>Contact Number:</label><br>
+            <input type="number" id="phone"><br>
+
+            <label>Department:</label><br>
+            <select id="course">
+                <option value="">-- Select Department --</option>
+                <option value="AIML">AIML</option>
+                <option value="IT">IT</option>
+                <option value="CSE">CSE</option>
+                <option value="EEE">EEE</option>
+                <option value="ECE">ECE</option>
+            </select><br>
+
+            <button class="save" onclick="saveStudent()">Save</button>
+        </div>
+
+        <div class="table-box">
+            <h3>📋 Registered Students List</h3>
+
+            <table id="studentTable">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Department</th>
+                    <th>Action</th>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+    <script>
+        let editRow = null;
+
+        function saveStudent() {
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            let phone = document.getElementById("phone").value;
+            let course = document.getElementById("course").value;
+
+            if (name === "" || email === "" || phone === "" || course === "") {
+                alert("Please fill all details");
+                return;
+            }
+
+            let table = document.getElementById("studentTable");
+
+            if (editRow == null) {
+                let row = table.insertRow();
+
+                row.insertCell(0).innerHTML = name;
+                row.insertCell(1).innerHTML = email;
+                row.insertCell(2).innerHTML = phone;
+                row.insertCell(3).innerHTML = course;
+                row.insertCell(4).innerHTML =
+                    `<button class="edit" onclick="editStudent(this)">Edit</button>
+                     <button class="delete" onclick="deleteStudent(this)">Delete</button>`;
+            } else {
+                editRow.cells[0].innerHTML = name;
+                editRow.cells[1].innerHTML = email;
+                editRow.cells[2].innerHTML = phone;
+                editRow.cells[3].innerHTML = course;
+
+                editRow = null;
+            }
+
+            clearForm();
+        }
+
+        function editStudent(button) {
+            editRow = button.parentElement.parentElement;
+
+            document.getElementById("name").value = editRow.cells[0].innerHTML;
+            document.getElementById("email").value = editRow.cells[1].innerHTML;
+            document.getElementById("phone").value = editRow.cells[2].innerHTML;
+            document.getElementById("course").value = editRow.cells[3].innerHTML;
+        }
+
+        function deleteStudent(button) {
+            let row = button.parentElement.parentElement;
+            row.remove();
+
+            editRow = null;
+            clearForm();
+        }
+
+        function clearForm() {
+            document.getElementById("name").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("phone").value = "";
+            document.getElementById("course").value = "";
+        }
+    </script>
+
+</body>
+</html>
+```
